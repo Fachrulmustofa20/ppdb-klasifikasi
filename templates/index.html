@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Type Diameters</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="icon" href="{{ url_for('static', filename='img/icon.png')}}" type="image/x-icon">
+</head>
+
+<body>
+  <!--Navbar-->
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" width="48px"> PPDB SPENDUKRA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-md-auto gap-2">
+          <li class="nav-item rounded">
+            <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house-fill me-2"></i>Home</a>
+          </li>
+          <li class="nav-item rounded">
+            <a class="nav-link" href="#"><i class="bi bi-people-fill me-2"></i>About</a>
+          </li>
+          <li class="nav-item rounded">
+            <a class="nav-link" href="#"><i class="bi bi-telephone-fill me-2"></i>Contact</a>
+          </li>
+          <li class="nav-item dropdown rounded">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill me-2"></i>Profile</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Account</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="pt-5">Prediksi Penerimaan Peserta Didik</h1>
+      <h2><strong>SMP N 2 Kramat</strong></h2>
+      <p>Website ini digunakan untuk memprediksi apakah siswa diterima atau tidak. Sehingga diharapkan dapat membantu sekolah dan juga calon siswa yang akan mendaftar di <strong>SMP N 2 Kramat</strong></p>
+    </div>
+  </div>
+  
+  <div class="test mt-4">
+    <div class="container">
+      <h2 class="mt-4 mb-3 text-center">Prediksi Peserta Didik</h2>  
+
+      <!--- Form ---> 
+      <form action="{{ url_for('predict')}}" method="post" class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-jalur">
+            <select class="form-select" name="jalur" id="jalur" aria-label="Jalur Pendaftaran" required>
+              <option selected disabled value="">Pilih Jalur Pendaftaran...</option>
+              <option value="1">Zonasi</option>
+              <option value="2">Afirmasi</option>
+              <option value="3">Prestasi</option>
+              <option value="4">Mutasi Orang Tua</option>
+            </select>
+            <label for="floatingSelect">Jalur Pendaftaran</label>
+            <div class="invalid-feedback">
+              Mohon Pilih Jalur Pendafataran
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-alamat">
+            <select class="form-select" name="alamat" id="alamat" aria-label="alamat rumah" required>
+              <option selected disabled value="">Pilih Alamat Rumah...</option>
+              <option value="1">Luar Kecamatan</option>
+              <option value="2">Satu Kecamatan</option>
+              <option value="3">Satu Kelurahan</option>
+              <option value="4">Satu RW dan Kelurahan</option>
+              <option value="5">Satu RT RW dan Kelurahan</option>
+            </select>
+            <label for="floatingSelect">Alamat Rumah</label>
+            <div class="invalid-feedback">
+              Mohon pilih Alamat Rumah Sesuai KK
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-jarak">
+            <input type="text" name="jarak" class="form-control" id="jarak" pattern="[0-9]+(\.[0-9]{1,5})?%?"
+              required>
+            <label for="jarak">Jarak Rumah ke Sekolah (KM)</label>
+            <div class="invalid-feedback">
+              Inputan Salah! Hanya diisi dengan angka
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-nilai">
+            <input type="text" name="nilai" class="form-control" id="nilai"
+              pattern="[0-9]+(\.[0-9]{1,5})?%?" required>
+            <label for="nilai">Nilai Kelulusan</label>
+            <div class="invalid-feedback">
+              Mohon di isi dengan angka!
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-ijasah-mda">
+            <select class="form-select" name="ijasah-mda" id="ijasah-mda" aria-label="Ijasah MDA" required>
+              <option selected disabled value="">Pilih Ijasah MDA...</option>
+              <option value="0">Tidak Ada</option>
+              <option value="1">Ada</option>
+            </select>
+            <label for="floatingSelect">Ijasah MDA</label>
+            <div class="invalid-feedback">
+              Mohon Pilih Ijasah MDA
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-sktm">
+            <select class="form-select" name="sktm" id="sktm" aria-label="SKTM" required>
+              <option selected disabled value="">Pilih SKTM...</option>
+              <option value="0">Tidak Ada</option>
+              <option value="1">Ada</option>
+            </select>
+            <label for="floatingSelect">SKTM</label>
+            <div class="invalid-feedback">
+              Mohon Pilih SKTM
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-surat-mutasi">
+            <select class="form-select" name="surat-mutasi" id="surat-mutasi" aria-label="Surat Mutasi Orang Tua" required>
+              <option selected disabled value="">Pilih surat mutasi ortu...</option>
+              <option value="0">Tidak Ada</option>
+              <option value="1">Ada</option>
+            </select>
+            <label for="floatingSelect">Surat Mutasi Orang Tua</label>
+            <div class="invalid-feedback">
+              Mohon Pilih Surat Mutasi Orang Tua
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-floating" id="validation-prestasi">
+            <select class="form-select" name="prestasi" id="prestasi" aria-label="Prestasi Tertinggi" required>
+              <option selected disabled value="">Pilih Prestasi Tertinggi...</option>
+              <option value="0">Tidak Ada</option>
+              <option value="5">Juara 1 Internesional</option>
+              <option value="5">Juara 2 Internesional</option>
+              <option value="5">Juara 3 Internesional</option>
+              <option value="5">Juara 1 Nasional</option>
+              <option value="4">Juara 2 Nasional</option>
+              <option value="3.5">Juara 3 Nasional</option>
+              <option value="3">Juara 1 Provinsi</option>
+              <option value="2.75">Juara 2 Provinsi</option>
+              <option value="2.5">Juara 3 Provinsi</option>
+              <option value="1.5">Juara 1 Kab/Kota</option>
+              <option value="1.25">Juara 2 Kab/Kota</option>
+              <option value="1">Juara 3 Kab/Kota</option>
+              <option value="0.75">Juara 1 Kecamatan</option>
+              <option value="0.5">Juara 2 Kecamatan</option>
+              <option value="0.25">Juara 3 Kecamatan</option>
+            </select>
+            <label for="floatingSelect">Prestasi Tertinggi</label>
+            <div class="invalid-feedback">
+              Mohon Pilih Prestasi Tertinggi
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary px-5" type="submit">Submit</button>
+        </div>
+      </form>
+
+      
+            {% if(prediction_text == 'Diterima' ): %}
+            <div class="alert alert-success mt-5 text-center" role="alert">
+              <h3>Selamat Anda <strong>Diterima</strong></h3>
+              <p class="mb-2">Berdasarkan prediksi anda diterima di SMP N 2 Kramat</p>
+            </div>
+            {% elif(prediction_text == 'Tidak Diterima'): %}
+            <div class="alert alert-danger mt-5 text-center" role="alert">
+              <h3>Mohon Maaf Anda <strong>Tidak Diterima</strong></h3>
+              <p class="mb-2">Jangan bersedih tetap semangat yah. Ini hanya prediksi saja</p>
+            </div>
+            {% endif %}
+
+    </div>
+  </div>
+
+  <footer class="bg-dark text-center">
+    <!-- Copyright -->
+    <div class="text-center p-3 text-light">
+      © 2021 By:
+      <a class="text-decoration-none text-light" href="#"> Dimas Ari Nugroho</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/style.js')}}"></script>
+</body>
+
+</html>

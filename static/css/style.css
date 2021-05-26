@@ -1,0 +1,25 @@
+body {
+    font-family: Montserrat, sans-serif;
+}
+.navbar-nav .nav-item:hover {
+    background-color: rgba(180, 190, 203, 0.4);
+}
+.jumbotron{
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.33), rgba(0, 0, 0, 0.748)),
+    url('../img/bg.jpg');
+    background-repeat: no-repeat;
+    min-height: 500px;
+    display: flex;
+    text-align: center;
+    color: #ecf0f1;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.jumbotron h1{
+    margin-top: 80px;
+}
+.test{
+    margin-bottom: 100px;
+}
